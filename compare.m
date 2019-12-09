@@ -14,7 +14,12 @@ for i = 1:2:50
 end
 y0(51) = 1000;
 [t,y] = ode45(@ddt, tspan, y0, options);
-figure, plot(t,y(:,1:50))
+figure, %plot(t,y(:,1:50))
+color = [[repelem(linspace(1,0,5), 5),0];zeros(1,26);[repmat(linspace(1,0,5),1,5),0]];
+for i = 1:25
+    plot(t,y(i*2-1,:) + y(i*2,:), 'color', color(:,i));
+    hold on;
+end
 title(sprintf('Population Growth for Toxin = %d (AU), Winner: ', y0(51)));
 xlabel('Time')
 ylabel('Population Size (Percent of Carrying Capacity)')
